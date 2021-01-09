@@ -1,6 +1,7 @@
 package com.olikester.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class LiniusAccessToken implements Serializable {
     private static final long serialVersionUID = -531445593780680034L;
@@ -9,7 +10,7 @@ public class LiniusAccessToken implements Serializable {
     private String userId;
     private boolean signedIn;
     private String refreshToken;
-    private int expiresAt;
+    private Date expiresAt;
 
     /**
      * @return the token
@@ -70,14 +71,14 @@ public class LiniusAccessToken implements Serializable {
     /**
      * @return the expiresAt
      */
-    public int getExpiresAt() {
+    public Date getExpiresAt() {
 	return expiresAt;
     }
 
     /**
      * @param expiresAt the expiresAt to set
      */
-    public void setExpiresAt(int expiresAt) {
+    public void setExpiresAt(Date expiresAt) {
 	this.expiresAt = expiresAt;
     }
 

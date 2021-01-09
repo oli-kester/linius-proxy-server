@@ -42,7 +42,6 @@ class LiniusServiceImplTest {
 	assertNotNull(accessToken);
 	assertNotEquals("", accessToken.getToken());
 	assertEquals(true, accessToken.isSignedIn());
-	assertEquals("oli_kester", accessToken.getUserId());
     }
 
 }
