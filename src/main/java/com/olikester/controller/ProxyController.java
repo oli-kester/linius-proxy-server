@@ -1,9 +1,8 @@
 package com.olikester.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +22,7 @@ public class ProxyController {
     private LiniusService liniusService;
     
     @GetMapping(SEARCH_ENDPOINT)
-    public Mono<ResponseEntity<String>> search(@RequestParam Map<String, String> requestParams){
-	return liniusService.search(null, requestParams);
+    public Mono<ResponseEntity<String>> search(@RequestParam MultiValueMap<String, String> requestParams){
+	return liniusService.search(null, requestParams).toEntity(String.class);
     }        
 }

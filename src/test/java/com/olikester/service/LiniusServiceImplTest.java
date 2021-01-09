@@ -2,7 +2,6 @@ package com.olikester.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Map;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -14,20 +13,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.ClientResponse;
 
 import com.olikester.model.LiniusAccessToken;
 
 @SpringBootTest
+@SuppressWarnings("unused")
 class LiniusServiceImplTest {
 
     @Autowired
     private LiniusService liniusService;
 
     private LiniusAccessToken testAccessToken;
-    final Map<String, String> validSearchParams1 = Map.of("test", "test");
+    static final MultiValueMap<String, String> validSearchParams1 = new LinkedMultiValueMap<>();
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
+	validSearchParams1.add("query", "testQueryString");
     }
 
     @AfterAll
@@ -86,11 +90,11 @@ class LiniusServiceImplTest {
     }
 
     @Test
-    @DisplayName("Send a single valid search")
-    void searchValid1() {
-	ResponseEntity<String> response = liniusService.search(testAccessToken, validSearchParams1).block();
+    @DisplayName("Send a single valid search, check status code")
+    void searchValidBasicTest1() {
+	ClientResponse response = liniusService.search(testAccessToken, validSearchParams1);	
 	assertNotNull(response);
-	assertEquals(HttpStatus.OK, response.getStatusCode());
+	assertEquals(HttpStatus.OK, response.statusCode());
     }
 
 }

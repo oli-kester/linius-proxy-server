@@ -1,12 +1,9 @@
 package com.olikester.service;
 
-import java.util.Map;
-
-import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.ClientResponse;
 
 import com.olikester.model.LiniusAccessToken;
-
-import reactor.core.publisher.Mono;
 
 public interface LiniusService {
     static final String BASE_URL = "https://api.lvs.linius.com/v3";
@@ -30,6 +27,7 @@ public interface LiniusService {
      * @param accessToken   - The token used to access Linius resources.
      * @return - The HTTP response to be forwarded to the client.
      */
-    public Mono<ResponseEntity<String>> search(LiniusAccessToken accessToken, Map<String, String> requestParams);
+    public ClientResponse search(LiniusAccessToken accessToken,
+	    MultiValueMap<String, String> requestParams);
 
 }
