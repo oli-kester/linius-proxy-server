@@ -2,7 +2,6 @@ package com.olikester.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -92,9 +91,9 @@ class LiniusServiceImplTest {
     @Test
     @DisplayName("Send a single valid search, check status code")
     void searchValidBasicTest1() {
-	ClientResponse response = liniusService.search(testAccessToken, validSearchParams1);	
+	ResponseEntity<String> response = liniusService.search(testAccessToken, validSearchParams1);	
 	assertNotNull(response);
-	assertEquals(HttpStatus.OK, response.statusCode());
+	assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
 }

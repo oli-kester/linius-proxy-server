@@ -1,10 +1,15 @@
 package com.olikester.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.reactive.function.client.ClientResponse;
 
 import com.olikester.model.LiniusAccessToken;
 
+/**
+ * Forwards select requests on to Linius
+ * @author Oliver Reynolds
+ *
+ */
 public interface LiniusService {
     static final String BASE_URL = "https://api.lvs.linius.com/v3";
     static final String AUTH_ENDPOINT = "/iam/auth/signin";
@@ -27,7 +32,7 @@ public interface LiniusService {
      * @param accessToken   - The token used to access Linius resources.
      * @return - The HTTP response to be forwarded to the client.
      */
-    public ClientResponse search(LiniusAccessToken accessToken,
+    public ResponseEntity<String> search(LiniusAccessToken accessToken,
 	    MultiValueMap<String, String> requestParams);
 
 }

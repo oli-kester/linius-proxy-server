@@ -6,10 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.olikester.model.LiniusAccessToken;
@@ -17,7 +17,7 @@ import com.olikester.model.LiniusAccessToken;
 @Service
 @PropertySource("classpath:api-keys.properties") // API keys are hidden in second properties file.
 public class LiniusServiceImpl implements LiniusService {
-    
+
     // Credentials used to access Linius API
     @Value("${linius.x-api-key}")
     private String X_API_KEY;
@@ -50,13 +50,13 @@ public class LiniusServiceImpl implements LiniusService {
     }
 
     @Override
-    public ClientResponse search(LiniusAccessToken accessToken, MultiValueMap<String, String> requestParams) {
+    public ResponseEntity<String> search(LiniusAccessToken accessToken, MultiValueMap<String, String> requestParams) {
 	if (accessToken == null || requestParams == null) {
 	    throw new NullPointerException();
 	}
 	return webClient.get().uri(uriBuilder -> uriBuilder.path(SEARCH_ENDPOINT).queryParams(requestParams).build())
 		.header("x-api-key", X_API_KEY).header("Authorization", "Bearer " + accessToken.getToken()).exchange()
-		.block();
+		.block().toEntity(String.class).block();
     }
 
 }

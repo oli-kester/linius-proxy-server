@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.olikester.model.LiniusAccessToken;
 import com.olikester.service.LiniusService;
 
-import reactor.core.publisher.Mono;
-
 /**
  * Proxy controller class for Linius REST services. 
  * 
- * Forwards requests on to Linius, then returns the response back. 
+ * Forwards requests on to our Linius service class, then returns the response back. 
  * 
  * @author Oliver Reynolds
  *
@@ -33,7 +31,7 @@ public class ProxyController {
     private LiniusAccessToken liniusAccessToken;
     
     @GetMapping(SEARCH_ENDPOINT)
-    public Mono<ResponseEntity<String>> search(@RequestParam MultiValueMap<String, String> requestParams){
-	return liniusService.search(liniusAccessToken, requestParams).toEntity(String.class);
+    public ResponseEntity<String> search(@RequestParam MultiValueMap<String, String> requestParams){
+	return liniusService.search(liniusAccessToken, requestParams);
     }        
 }
