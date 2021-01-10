@@ -3,6 +3,11 @@ package com.olikester.model;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Represents a Linius API access token. 
+ * @author Oliver Reynolds
+ *
+ */
 public class LiniusAccessToken implements Serializable {
     private static final long serialVersionUID = -531445593780680034L;
 
