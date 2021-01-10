@@ -15,6 +15,9 @@ linius.password = your Linius password
 
 This file should not be checked into version control for security reasons. 
 
+3. Add static IP addresses of allowed clients in the `ALLOWED_IPS` constant in the `SecurityConfig` class. 
+4. Deploy and run the application on your server. 
+
 ## TODO
 
 - Integrate with AWS. 
