@@ -1,0 +1,14 @@
+{
+  "activated": true,
+  "endDate": "2017-09-26T13:28:37.242Z",
+  "format": "MP4 | HLS",
+  "name": "Big Buck Bunny",
+  "sourceUrl": "string example",
+  "startDate": "2017-09-26T13:28:37.242Z",
+  "tags": [
+    "Big Buck Bunny",
+    "Bunny004",
+    "test004"
+  ],
+  "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/800px-Big_buck_bunny_poster_big.jpg"
+}
