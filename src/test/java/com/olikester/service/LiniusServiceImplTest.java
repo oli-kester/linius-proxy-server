@@ -69,7 +69,7 @@ class LiniusServiceImplTest {
     @DisplayName("Try and send a search with null parameters and token")
     void searchNullParameters() {
 	try {
-	    liniusService.search(null, null);
+	    liniusService.getRequest(null, LiniusService.SEARCH_ENDPOINT, null);
 	} catch (NullPointerException e) {
 	    return;
 	}
@@ -80,7 +80,7 @@ class LiniusServiceImplTest {
     @DisplayName("Try and send a search with null parameters, but a valid token")
     void searchNullSearchParams() {
 	try {
-	    liniusService.search(testAccessToken, null);
+	    liniusService.getRequest(testAccessToken, LiniusService.SEARCH_ENDPOINT, null);
 	} catch (NullPointerException e) {
 	    return;
 	}
@@ -91,7 +91,7 @@ class LiniusServiceImplTest {
     @DisplayName("Try and send a search with valid parameters, but a null token")
     void searchNullToken() {
 	try {
-	    liniusService.search(null, validSearchParams1);
+	    liniusService.getRequest(null, LiniusService.SEARCH_ENDPOINT, validSearchParams1);
 	} catch (NullPointerException e) {
 	    return;
 	}
@@ -101,7 +101,8 @@ class LiniusServiceImplTest {
     @Test
     @DisplayName("Send a single valid search, check status code")
     void searchValidBasicTest1() {
-	ResponseEntity<String> response = liniusService.search(testAccessToken, validSearchParams1);
+	ResponseEntity<String> response = liniusService.getRequest(testAccessToken, LiniusService.SEARCH_ENDPOINT,
+		validSearchParams1);
 	assertNotNull(response);
 	assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -109,7 +110,8 @@ class LiniusServiceImplTest {
     @Test
     @DisplayName("Send a request for enrich jobs status, check status code")
     void enrichJobsStatusCheck1() {
-	ResponseEntity<String> response = liniusService.enrichJobs(testAccessToken, validEnrichJobsParams1);
+	ResponseEntity<String> response = liniusService.getRequest(testAccessToken, LiniusService.ENRICH_JOBS_ENDPOINT,
+		validEnrichJobsParams1);
 	assertNotNull(response);
 	assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -117,7 +119,8 @@ class LiniusServiceImplTest {
     @Test
     @DisplayName("Send a request for discovery, check status code")
     void discoveryStatusCheck1() {
-	ResponseEntity<String> response = liniusService.discover(testAccessToken, discoverBody);
+	ResponseEntity<String> response = liniusService.postRequest(testAccessToken, LiniusService.DISCOVER_ENDPOINT,
+		discoverBody);
 	assertNotNull(response);
 	assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -127,7 +130,8 @@ class LiniusServiceImplTest {
     @Test
     @DisplayName("Send a request for enriching, check status code")
     void enrichStatusCheck1() {
-	ResponseEntity<String> response = liniusService.enrich(testAccessToken, enrichBody);
+	ResponseEntity<String> response = liniusService.postRequest(testAccessToken,
+		LiniusService.ENRICH_ASSETS_ENDPOINT, enrichBody);
 	assertNotNull(response);
 	assertEquals(HttpStatus.OK, response.getStatusCode());
     }

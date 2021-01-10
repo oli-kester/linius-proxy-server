@@ -11,9 +11,10 @@ import com.olikester.model.LiniusAccessToken;
 import com.olikester.service.LiniusService;
 
 /**
- * Proxy controller class for Linius REST services. 
+ * Proxy controller class for Linius REST services.
  * 
- * Forwards requests on to our Linius service class, then returns the response back. 
+ * Forwards requests on to our Linius service class, then returns the response
+ * back.
  * 
  * @author Oliver Reynolds
  *
@@ -24,14 +25,14 @@ public class ProxyController {
     static final String ENRICH_ASSETS_ENDPOINT = "/enrich/assets";
     static final String ENRICH_JOBS_ENDPOINT = "/enrich/jobs";
     static final String SEARCH_ENDPOINT = "/search";
-    
+
     @Autowired
     private LiniusService liniusService;
     @Autowired
     private LiniusAccessToken liniusAccessToken;
-    
+
     @GetMapping(SEARCH_ENDPOINT)
-    public ResponseEntity<String> search(@RequestParam MultiValueMap<String, String> requestParams){
-	return liniusService.search(liniusAccessToken, requestParams);
-    }        
+    public ResponseEntity<String> search(@RequestParam MultiValueMap<String, String> requestParams) {
+	return liniusService.getRequest(liniusAccessToken, LiniusService.SEARCH_ENDPOINT, requestParams);
+    }
 }

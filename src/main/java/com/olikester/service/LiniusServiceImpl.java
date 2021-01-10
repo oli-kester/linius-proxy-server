@@ -50,43 +50,22 @@ public class LiniusServiceImpl implements LiniusService {
     }
 
     @Override
-    public ResponseEntity<String> search(LiniusAccessToken accessToken, MultiValueMap<String, String> requestParams) {
-	if (accessToken == null || requestParams == null) {
-	    throw new NullPointerException();
-	}
-	return webClient.get().uri(uriBuilder -> uriBuilder.path(SEARCH_ENDPOINT).queryParams(requestParams).build())
-		.header("x-api-key", X_API_KEY).header("Authorization", "Bearer " + accessToken.getToken()).exchange()
-		.block().toEntity(String.class).block();
-    }
-
-    @Override
-    public ResponseEntity<String> enrichJobs(LiniusAccessToken accessToken,
+    public ResponseEntity<String> getRequest(LiniusAccessToken accessToken, String endpoint,
 	    MultiValueMap<String, String> requestParams) {
 	if (accessToken == null || requestParams == null) {
 	    throw new NullPointerException();
 	}
-	return webClient.get()
-		.uri(uriBuilder -> uriBuilder.path(ENRICH_JOBS_ENDPOINT).queryParams(requestParams).build())
+	return webClient.get().uri(uriBuilder -> uriBuilder.path(endpoint).queryParams(requestParams).build())
 		.header("x-api-key", X_API_KEY).header("Authorization", "Bearer " + accessToken.getToken()).exchange()
 		.block().toEntity(String.class).block();
     }
 
     @Override
-    public ResponseEntity<String> discover(LiniusAccessToken accessToken, String requestBody) {
+    public ResponseEntity<String> postRequest(LiniusAccessToken accessToken, String endpoint, String requestBody) {
 	if (accessToken == null || requestBody == null) {
 	    throw new NullPointerException();
 	}
-	return webClient.post().uri(uriBuilder -> uriBuilder.path(DISCOVER_ENDPOINT).build()).bodyValue(requestBody)
-		.header("x-api-key", X_API_KEY).header("Authorization", "Bearer " + accessToken.getToken()).exchange()
-		.block().toEntity(String.class).block();
-    }
-
-    @Override
-    public ResponseEntity<String> enrich(LiniusAccessToken accessToken, String requestBody) {
-	if (accessToken == null || requestBody == null) {
-	    throw new NullPointerException();
-	}
-	return webClient.post().uri(uriBuilder -> uriBuilder.path(ENRICH_ASSETS_ENDPOINT).build()).bodyValue(requestBody)
+	return webClient.post().uri(uriBuilder -> uriBuilder.path(endpoint).build()).bodyValue(requestBody)
 		.header("x-api-key", X_API_KEY).header("Authorization", "Bearer " + accessToken.getToken()).exchange()
 		.block().toEntity(String.class).block();
     }
