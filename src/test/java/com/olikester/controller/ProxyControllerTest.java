@@ -57,15 +57,15 @@ class ProxyControllerTest {
     @Test
     @DisplayName("Send an empty search request to check the connection to Linius is valid")
     void checkConnectionValid() throws Exception {
-	mockMvc.perform(get("/search").queryParam("query", "test").contentType(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-		.andExpect(jsonPath("size", is(50)));
+	mockMvc.perform(get(ProxyController.SEARCH_ENDPOINT).queryParam("query", "test")
+		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("size", is(50)));
     }
 
     @Test
     @DisplayName("Send a search, checking we're influencing the page size of the results")
     void searchTestCheckPageSize() throws Exception {
-	mockMvc.perform(get("/search").queryParam("query", "test2").queryParam("pageSize", "1")
+	mockMvc.perform(get(ProxyController.SEARCH_ENDPOINT).queryParam("query", "test2").queryParam("pageSize", "1")
 		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("size", is(1)));
     }
@@ -73,7 +73,7 @@ class ProxyControllerTest {
     @Test
     @DisplayName("Send a search request from a different IP and check it's blocked")
     void checkUnlistedIpSearchIsBlocked() throws Exception {
-	mockMvc.perform(get("/search").queryParam("query", "test2").queryParam("pageSize", "1")
+	mockMvc.perform(get(ProxyController.SEARCH_ENDPOINT).queryParam("query", "test2").queryParam("pageSize", "1")
 		.contentType(MediaType.APPLICATION_JSON).with(request -> {
 		    request.setRemoteAddr("192.168.1.106");
 		    return request;
