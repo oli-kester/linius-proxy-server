@@ -4,7 +4,7 @@ A proxy server that forwards select requests to the Linius Technologies API, and
 ## Installation
 
 1. Download the repo
-2. Create a `api-keys.properties` file in the directory `src/main/resources`. 
+2. Create an `api-keys.properties` file in the directory `src/main/resources`. 
 This file should contain the following properties - 
 
 ```
