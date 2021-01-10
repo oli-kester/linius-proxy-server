@@ -59,4 +59,23 @@ public class LiniusServiceImpl implements LiniusService {
 		.block().toEntity(String.class).block();
     }
 
+    @Override
+    public ResponseEntity<String> enrichJobs(LiniusAccessToken accessToken,
+	    MultiValueMap<String, String> requestParams) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public ResponseEntity<String> discover(LiniusAccessToken accessToken, String requestBody) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public ResponseEntity<String> enrich(LiniusAccessToken accessToken, String requestBody) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 }

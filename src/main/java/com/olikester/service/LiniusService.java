@@ -7,6 +7,7 @@ import com.olikester.model.LiniusAccessToken;
 
 /**
  * Forwards select requests on to Linius
+ * 
  * @author Oliver Reynolds
  *
  */
@@ -28,11 +29,37 @@ public interface LiniusService {
     /**
      * Forward a search request to Linius, and return the response.
      * 
-     * @param requestParams - The search parameters, as defined in the Linius API.
      * @param accessToken   - The token used to access Linius resources.
+     * @param requestParams - The search parameters, as defined in the Linius API.
      * @return - The HTTP response to be forwarded to the client.
      */
-    public ResponseEntity<String> search(LiniusAccessToken accessToken,
+    public ResponseEntity<String> search(LiniusAccessToken accessToken, MultiValueMap<String, String> requestParams);
+
+    /**
+     * Forward an enrich jobs status request to Linius, and return the response.
+     * 
+     * @param accessToken   - The token used to access Linius resources.
+     * @param requestParams - The search parameters, as defined in the Linius API.
+     * @return - The HTTP response to be forwarded to the client.
+     */
+    public ResponseEntity<String> enrichJobs(LiniusAccessToken accessToken,
 	    MultiValueMap<String, String> requestParams);
 
+    /**
+     * Forward a discovery request to Linius, and return the response.
+     * 
+     * @param accessToken - The token used to access Linius resources.
+     * @param requestBody - The discovery parameters, as defined in the Linius API.
+     * @return - The HTTP response to be forwarded to the client.
+     */
+    public ResponseEntity<String> discover(LiniusAccessToken accessToken, String requestBody);
+
+    /**
+     * Forward an enrich request to Linius, and return the response.
+     * 
+     * @param accessToken - The token used to access Linius resources.
+     * @param requestBody - The enrich parameters, as defined in the Linius API.
+     * @return - The HTTP response to be forwarded to the client.
+     */
+    public ResponseEntity<String> enrich(LiniusAccessToken accessToken, String requestBody);
 }
