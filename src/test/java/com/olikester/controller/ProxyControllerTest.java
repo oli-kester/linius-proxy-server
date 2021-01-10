@@ -2,6 +2,7 @@ package com.olikester.controller;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.empty;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -94,8 +95,7 @@ class ProxyControllerTest {
     void testEnrichJobsStatus1() throws Exception {
 	mockMvc.perform(get(ProxyController.ENRICH_JOBS_ENDPOINT).queryParam("id", "123")
 		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-		.andExpect(jsonPath("jobs", is("[]")));
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("jobs", empty()));
     }
 
     @Test

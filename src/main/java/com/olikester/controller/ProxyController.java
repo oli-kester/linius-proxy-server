@@ -35,4 +35,9 @@ public class ProxyController {
     public ResponseEntity<String> search(@RequestParam MultiValueMap<String, String> requestParams) {
 	return liniusService.getRequest(liniusAccessToken, LiniusService.SEARCH_ENDPOINT, requestParams);
     }
+
+    @GetMapping(ENRICH_JOBS_ENDPOINT)
+    public ResponseEntity<String> enrichJobs(@RequestParam MultiValueMap<String, String> requestParams) {
+	return liniusService.getRequest(liniusAccessToken, LiniusService.ENRICH_JOBS_ENDPOINT, requestParams);
+    }
 }
