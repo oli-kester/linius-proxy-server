@@ -112,7 +112,7 @@ class LiniusServiceImplTest {
 	assertNotNull(response);
 	assertEquals(HttpStatus.OK, response.getStatusCode());
     }
-    
+
     @Test
     @DisplayName("Send a request for discovery, check status code")
     void discoveryStatusCheck1() {
@@ -120,7 +120,7 @@ class LiniusServiceImplTest {
 	assertNotNull(response);
 	assertEquals(HttpStatus.OK, response.getStatusCode());
     }
-    
+
     @Test
     @DisplayName("Send a request for enriching, check status code")
     void enrichStatusCheck1() {
