@@ -1,11 +1,11 @@
 # Linius Proxy Server
 A proxy server that forwards select requests to the Linius Technologies API, and returns the response. 
 
-## Usage
+## Installation
 
 1. Download the repo
 2. Create a `api-keys.properties` file in the directory `src/main/resources`. 
-This file should contain the following - 
+This file should contain the following properties - 
 
 ```
 linius.x-api-key = your Linius API key
@@ -17,6 +17,18 @@ This file should not be checked into version control for security reasons.
 
 3. Add static IP addresses of allowed clients in the `ALLOWED_IPS` constant in the `SecurityConfig` class. 
 4. Deploy and run the application on your server. 
+
+## Usage
+The following endpoints are provided and forwarded to Linius - 
+
+| Proxy Endpoint | Linius API Endpoint |
+| ----------- | ----------- |
+| /discover | /v3/discover |
+| /enrich/assets | /v3/enrich/assets | 
+| /enrich/jobs | /v3/enrich/jobs |
+| /search | /v3/search/* | 
+
+Please follow Linius documentation on their usage. 
 
 ## TODO
 
