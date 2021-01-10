@@ -32,7 +32,7 @@ import com.olikester.service.LiniusService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@SuppressWarnings({ "unused", "deprecation" })
+@SuppressWarnings("unused")
 class ProxyControllerTest {
 
     @Autowired
@@ -69,15 +69,14 @@ class ProxyControllerTest {
     void checkConnectionValid() throws Exception {
 	mockMvc.perform(get(ProxyController.SEARCH_ENDPOINT).queryParam("query", "test")
 		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("size", is(50)));
+		.andExpect(jsonPath("size", is(50)));
     }
 
     @Test
     @DisplayName("Send a search, checking we're influencing the page size of the results")
     void searchTestCheckPageSize() throws Exception {
 	mockMvc.perform(get(ProxyController.SEARCH_ENDPOINT).queryParam("query", "test2").queryParam("pageSize", "1")
-		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("size", is(1)));
+		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("size", is(1)));
     }
 
     @Test
@@ -95,7 +94,7 @@ class ProxyControllerTest {
     void testEnrichJobsStatus1() throws Exception {
 	mockMvc.perform(get(ProxyController.ENRICH_JOBS_ENDPOINT).queryParam("id", "123")
 		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("jobs", empty()));
+		.andExpect(jsonPath("jobs", empty()));
     }
 
     @Test
@@ -103,8 +102,7 @@ class ProxyControllerTest {
     void testAddDiscovery1() throws Exception {
 	mockMvc.perform(
 		post(ProxyController.DISCOVER_ENDPOINT).content(discoverBody).contentType(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-		.andExpect(jsonPath("name", is("Big Buck Bunny")));
+		.andExpect(status().isOk()).andExpect(jsonPath("name", is("Big Buck Bunny")));
     }
 
     @Test
@@ -112,7 +110,6 @@ class ProxyControllerTest {
     void testEnrichAsset1() throws Exception {
 	mockMvc.perform(post(ProxyController.ENRICH_ASSETS_ENDPOINT).content(enrichBody)
 		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(jsonPath("message", is("Asset is already indexed")));
     }
 }

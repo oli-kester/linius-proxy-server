@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,5 +41,15 @@ public class ProxyController {
     @GetMapping(ENRICH_JOBS_ENDPOINT)
     public ResponseEntity<String> enrichJobs(@RequestParam MultiValueMap<String, String> requestParams) {
 	return liniusService.getRequest(liniusAccessToken, LiniusService.ENRICH_JOBS_ENDPOINT, requestParams);
+    }
+
+    @PostMapping(DISCOVER_ENDPOINT)
+    public ResponseEntity<String> discover(@RequestBody String requestBody) {
+	return liniusService.postRequest(liniusAccessToken, LiniusService.DISCOVER_ENDPOINT, requestBody);
+    }
+
+    @PostMapping(ENRICH_ASSETS_ENDPOINT)
+    public ResponseEntity<String> enrichAsset(@RequestBody String requestBody) {
+	return liniusService.postRequest(liniusAccessToken, LiniusService.ENRICH_ASSETS_ENDPOINT, requestBody);
     }
 }
