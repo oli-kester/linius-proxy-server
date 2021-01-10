@@ -65,21 +65,30 @@ public class LiniusServiceImpl implements LiniusService {
 	if (accessToken == null || requestParams == null) {
 	    throw new NullPointerException();
 	}
-	return webClient.get().uri(uriBuilder -> uriBuilder.path(ENRICH_JOBS_ENDPOINT).queryParams(requestParams).build())
+	return webClient.get()
+		.uri(uriBuilder -> uriBuilder.path(ENRICH_JOBS_ENDPOINT).queryParams(requestParams).build())
 		.header("x-api-key", X_API_KEY).header("Authorization", "Bearer " + accessToken.getToken()).exchange()
 		.block().toEntity(String.class).block();
     }
 
     @Override
     public ResponseEntity<String> discover(LiniusAccessToken accessToken, String requestBody) {
-	// TODO Auto-generated method stub
-	return null;
+	if (accessToken == null || requestBody == null) {
+	    throw new NullPointerException();
+	}
+	return webClient.post().uri(uriBuilder -> uriBuilder.path(DISCOVER_ENDPOINT).build()).bodyValue(requestBody)
+		.header("x-api-key", X_API_KEY).header("Authorization", "Bearer " + accessToken.getToken()).exchange()
+		.block().toEntity(String.class).block();
     }
 
     @Override
     public ResponseEntity<String> enrich(LiniusAccessToken accessToken, String requestBody) {
-	// TODO Auto-generated method stub
-	return null;
+	if (accessToken == null || requestBody == null) {
+	    throw new NullPointerException();
+	}
+	return webClient.post().uri(uriBuilder -> uriBuilder.path(ENRICH_ASSETS_ENDPOINT).build()).bodyValue(requestBody)
+		.header("x-api-key", X_API_KEY).header("Authorization", "Bearer " + accessToken.getToken()).exchange()
+		.block().toEntity(String.class).block();
     }
 
 }

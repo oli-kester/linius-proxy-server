@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +122,8 @@ class LiniusServiceImplTest {
 	assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
+    @Disabled // TODO fails on assets that have already been enriched. Need to add a new one
+	      // on each test run, then delete.
     @Test
     @DisplayName("Send a request for enriching, check status code")
     void enrichStatusCheck1() {

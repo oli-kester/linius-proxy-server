@@ -1,9 +1,9 @@
 {
   "activated": true,
   "endDate": "2017-09-26T13:28:37.242Z",
-  "format": "MP4 | HLS",
+  "format": "MP4",
   "name": "Big Buck Bunny",
-  "sourceUrl": "string example",
+  "sourceUrl": "https://s3.eu-central-1.amazonaws.com/linius-test-data/10m/bbb_10m.mp4",
   "startDate": "2017-09-26T13:28:37.242Z",
   "tags": [
     "Big Buck Bunny",
