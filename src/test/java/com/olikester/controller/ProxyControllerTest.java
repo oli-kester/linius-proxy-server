@@ -4,9 +4,13 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.AfterAll;
@@ -38,8 +42,13 @@ class ProxyControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private static String discoverBody;
+    private static String enrichBody;
+
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
+	discoverBody = Files.readString(Path.of("src/test/resources/discover-sample-body.json"));
+	enrichBody = Files.readString(Path.of("src/test/resources/enrich-sample-body.json"));
     }
 
     @AfterAll
@@ -78,5 +87,32 @@ class ProxyControllerTest {
 		    request.setRemoteAddr("192.168.1.106");
 		    return request;
 		})).andExpect(status().isForbidden());
+    }
+
+    @Test
+    @DisplayName("Send an enrich jobs status request")
+    void testEnrichJobsStatus1() throws Exception {
+	mockMvc.perform(get(ProxyController.ENRICH_JOBS_ENDPOINT).queryParam("id", "123")
+		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(jsonPath("jobs", is("[]")));
+    }
+
+    @Test
+    @DisplayName("Send a discover request")
+    void testAddDiscovery1() throws Exception {
+	mockMvc.perform(
+		post(ProxyController.DISCOVER_ENDPOINT).content(discoverBody).contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(jsonPath("name", is("Big Buck Bunny")));
+    }
+
+    @Test
+    @DisplayName("Send an enrich request for an already enriched asset")
+    void testEnrichAsset1() throws Exception {
+	mockMvc.perform(post(ProxyController.ENRICH_ASSETS_ENDPOINT).content(enrichBody)
+		.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(jsonPath("message", is("Asset is already indexed")));
     }
 }
